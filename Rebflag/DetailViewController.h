@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class NHACountry;
+
 @interface DetailViewController : UIViewController
 
-@property (strong, nonatomic) NSDate *detailItem;
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (strong, nonatomic) NHACountry *country;
 
 @end
 

@@ -7,44 +7,36 @@
 //
 
 #import "DetailViewController.h"
+#import "NHACountry.h"
 
 @interface DetailViewController ()
-
+@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *flagView;
 @end
 
 @implementation DetailViewController
 
 - (void)configureView {
-    // Update the user interface for the detail item.
-    if (self.detailItem) {
-        self.detailDescriptionLabel.text = [self.detailItem description];
+    if (self.country) {
+        self.nameLabel.text = self.country.name;
     }
 }
 
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
     [self configureView];
 }
 
+#pragma mark - Managing the country
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
-#pragma mark - Managing the detail item
-
-- (void)setDetailItem:(NSDate *)newDetailItem {
-    if (_detailItem != newDetailItem) {
-        _detailItem = newDetailItem;
+- (void)setCountry:(NHACountry *)country {
+    if (_country != country) {
+        _country = country;
         
         // Update the view.
         [self configureView];
     }
 }
-
 
 @end

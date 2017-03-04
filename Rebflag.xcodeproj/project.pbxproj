@@ -14,8 +14,15 @@
 		85ABC2CD1E686830001491F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85ABC2CB1E686830001491F6 /* Main.storyboard */; };
 		85ABC2CF1E686830001491F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85ABC2CE1E686830001491F6 /* Assets.xcassets */; };
 		85ABC2D21E686830001491F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85ABC2D01E686830001491F6 /* LaunchScreen.storyboard */; };
-		85ABC2DD1E686831001491F6 /* RebflagTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2DC1E686831001491F6 /* RebflagTests.m */; };
 		85ABC2E81E686831001491F6 /* RebflagUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2E71E686831001491F6 /* RebflagUITests.m */; };
+		85ABC2F61E686C0B001491F6 /* NHARequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2F51E686C0B001491F6 /* NHARequestTest.m */; };
+		85ABC2F91E686DE6001491F6 /* NHARequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2F81E686DE6001491F6 /* NHARequest.m */; };
+		85ABC2FC1E68A13C001491F6 /* NHACountry.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2FB1E68A13C001491F6 /* NHACountry.m */; };
+		85ABC3011E68B6E5001491F6 /* NHACountryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC3001E68B6E5001491F6 /* NHACountryTest.m */; };
+		85ABC3041E6B2BD2001491F6 /* NHACountriesDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC3031E6B2BD2001491F6 /* NHACountriesDecoder.m */; };
+		85ABC3061E6B4194001491F6 /* NHACountriesDecoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC3051E6B4194001491F6 /* NHACountriesDecoderTest.m */; };
+		85ABC3091E6B4D20001491F6 /* NHADecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC3081E6B4D20001491F6 /* NHADecoder.m */; };
+		85ABC30B1E6B4FD3001491F6 /* NHADecoderTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC30A1E6B4FD3001491F6 /* NHADecoderTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,11 +56,22 @@
 		85ABC2D11E686830001491F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		85ABC2D31E686830001491F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85ABC2D81E686831001491F6 /* RebflagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RebflagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		85ABC2DC1E686831001491F6 /* RebflagTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RebflagTests.m; sourceTree = "<group>"; };
 		85ABC2DE1E686831001491F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85ABC2E31E686831001491F6 /* RebflagUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RebflagUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		85ABC2E71E686831001491F6 /* RebflagUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RebflagUITests.m; sourceTree = "<group>"; };
 		85ABC2E91E686831001491F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85ABC2F51E686C0B001491F6 /* NHARequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHARequestTest.m; sourceTree = "<group>"; };
+		85ABC2F71E686DE6001491F6 /* NHARequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHARequest.h; sourceTree = "<group>"; };
+		85ABC2F81E686DE6001491F6 /* NHARequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHARequest.m; sourceTree = "<group>"; };
+		85ABC2FA1E68A13C001491F6 /* NHACountry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHACountry.h; sourceTree = "<group>"; };
+		85ABC2FB1E68A13C001491F6 /* NHACountry.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHACountry.m; sourceTree = "<group>"; };
+		85ABC3001E68B6E5001491F6 /* NHACountryTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHACountryTest.m; sourceTree = "<group>"; };
+		85ABC3021E6B2BD2001491F6 /* NHACountriesDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHACountriesDecoder.h; sourceTree = "<group>"; };
+		85ABC3031E6B2BD2001491F6 /* NHACountriesDecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHACountriesDecoder.m; sourceTree = "<group>"; };
+		85ABC3051E6B4194001491F6 /* NHACountriesDecoderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHACountriesDecoderTest.m; sourceTree = "<group>"; };
+		85ABC3071E6B4D20001491F6 /* NHADecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHADecoder.h; sourceTree = "<group>"; };
+		85ABC3081E6B4D20001491F6 /* NHADecoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHADecoder.m; sourceTree = "<group>"; };
+		85ABC30A1E6B4FD3001491F6 /* NHADecoderTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHADecoderTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,12 +122,11 @@
 		85ABC2BE1E686830001491F6 /* Rebflag */ = {
 			isa = PBXGroup;
 			children = (
-				85ABC2C21E686830001491F6 /* AppDelegate.h */,
-				85ABC2C31E686830001491F6 /* AppDelegate.m */,
-				85ABC2C51E686830001491F6 /* MasterViewController.h */,
-				85ABC2C61E686830001491F6 /* MasterViewController.m */,
-				85ABC2C81E686830001491F6 /* DetailViewController.h */,
-				85ABC2C91E686830001491F6 /* DetailViewController.m */,
+				85ABC3101E6B58FF001491F6 /* Application */,
+				85ABC30F1E6B58D3001491F6 /* Controllers */,
+				85ABC30D1E6B58A0001491F6 /* Networking */,
+				85ABC30E1E6B58BA001491F6 /* Decoders */,
+				85ABC30C1E6B5893001491F6 /* Models */,
 				85ABC2CB1E686830001491F6 /* Main.storyboard */,
 				85ABC2CE1E686830001491F6 /* Assets.xcassets */,
 				85ABC2D01E686830001491F6 /* LaunchScreen.storyboard */,
@@ -130,8 +147,11 @@
 		85ABC2DB1E686831001491F6 /* RebflagTests */ = {
 			isa = PBXGroup;
 			children = (
-				85ABC2DC1E686831001491F6 /* RebflagTests.m */,
 				85ABC2DE1E686831001491F6 /* Info.plist */,
+				85ABC2F51E686C0B001491F6 /* NHARequestTest.m */,
+				85ABC30A1E6B4FD3001491F6 /* NHADecoderTest.m */,
+				85ABC3051E6B4194001491F6 /* NHACountriesDecoderTest.m */,
+				85ABC3001E68B6E5001491F6 /* NHACountryTest.m */,
 			);
 			path = RebflagTests;
 			sourceTree = "<group>";
@@ -143,6 +163,55 @@
 				85ABC2E91E686831001491F6 /* Info.plist */,
 			);
 			path = RebflagUITests;
+			sourceTree = "<group>";
+		};
+		85ABC30C1E6B5893001491F6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				85ABC2FA1E68A13C001491F6 /* NHACountry.h */,
+				85ABC2FB1E68A13C001491F6 /* NHACountry.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		85ABC30D1E6B58A0001491F6 /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				85ABC2F71E686DE6001491F6 /* NHARequest.h */,
+				85ABC2F81E686DE6001491F6 /* NHARequest.m */,
+				85ABC3071E6B4D20001491F6 /* NHADecoder.h */,
+				85ABC3081E6B4D20001491F6 /* NHADecoder.m */,
+			);
+			name = Networking;
+			sourceTree = "<group>";
+		};
+		85ABC30E1E6B58BA001491F6 /* Decoders */ = {
+			isa = PBXGroup;
+			children = (
+				85ABC3021E6B2BD2001491F6 /* NHACountriesDecoder.h */,
+				85ABC3031E6B2BD2001491F6 /* NHACountriesDecoder.m */,
+			);
+			name = Decoders;
+			sourceTree = "<group>";
+		};
+		85ABC30F1E6B58D3001491F6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				85ABC2C51E686830001491F6 /* MasterViewController.h */,
+				85ABC2C61E686830001491F6 /* MasterViewController.m */,
+				85ABC2C81E686830001491F6 /* DetailViewController.h */,
+				85ABC2C91E686830001491F6 /* DetailViewController.m */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		85ABC3101E6B58FF001491F6 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				85ABC2C21E686830001491F6 /* AppDelegate.h */,
+				85ABC2C31E686830001491F6 /* AppDelegate.m */,
+			);
+			name = Application;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -207,6 +276,7 @@
 		85ABC2B41E686830001491F6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = NHA;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Niklas Holmgren & Associates AB";
 				TargetAttributes = {
@@ -281,9 +351,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85ABC2FC1E68A13C001491F6 /* NHACountry.m in Sources */,
+				85ABC2F91E686DE6001491F6 /* NHARequest.m in Sources */,
 				85ABC2C41E686830001491F6 /* AppDelegate.m in Sources */,
 				85ABC2C71E686830001491F6 /* MasterViewController.m in Sources */,
+				85ABC3091E6B4D20001491F6 /* NHADecoder.m in Sources */,
 				85ABC2C11E686830001491F6 /* main.m in Sources */,
+				85ABC3041E6B2BD2001491F6 /* NHACountriesDecoder.m in Sources */,
 				85ABC2CA1E686830001491F6 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +366,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85ABC2DD1E686831001491F6 /* RebflagTests.m in Sources */,
+				85ABC30B1E6B4FD3001491F6 /* NHADecoderTest.m in Sources */,
+				85ABC3011E68B6E5001491F6 /* NHACountryTest.m in Sources */,
+				85ABC3061E6B4194001491F6 /* NHACountriesDecoderTest.m in Sources */,
+				85ABC2F61E686C0B001491F6 /* NHARequestTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
