@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIKit.h>
 
 @interface NHACountry : NSObject
 
@@ -15,6 +16,9 @@
 
 /** The ISO 3166-1 alpha-2 country code. */
 @property (nonnull, nonatomic, strong, readonly) NSString *code;
+
+/** The flag of the country as an UIImage. */
+@property (nullable, nonatomic, strong, readonly) UIImage *flag;
 
 /** Initialize a country object by specifing a name and country code. */
 - (nullable instancetype)initWithName:(nonnull NSString *)name

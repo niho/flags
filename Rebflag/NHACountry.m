@@ -20,4 +20,8 @@
     return self;
 }
 
+- (UIImage *)flag {
+    return [UIImage imageNamed:[self.code lowercaseString]];
+}
+
 @end

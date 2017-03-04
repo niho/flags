@@ -31,4 +31,8 @@
     XCTAssertEqual(@"SE", self.country.code);
 }
 
+- (void)testFlag {
+    XCTAssert(self.country.flag);
+}
+
 @end

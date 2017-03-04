@@ -18,7 +18,9 @@
 
 - (void)configureView {
     if (self.country) {
+        self.title = self.country.name;
         self.nameLabel.text = self.country.name;
+        self.flagView.image = self.country.flag;
     }
 }
 
