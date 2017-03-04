@@ -32,9 +32,18 @@
     [super tearDown];
 }
 
-- (void)testExample {
-    // Use recording to get started writing UI tests.
-    // Use XCTAssert and related functions to verify your tests produce the correct results.
+- (void)testRussianFederation {
+    XCUIApplication *app = [[XCUIApplication alloc] init];
+    
+    [self expectationForPredicate:[NSPredicate predicateWithFormat:@"self.count > 0"]
+              evaluatedWithObject:app.tables.cells
+                          handler:nil];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
+    
+    [app.tables.cells.staticTexts[@"Russian Federation"] tap];
+    
+    XCUIElement *russianFederationNavigationBar = app.navigationBars[@"Russian Federation"];
+    [russianFederationNavigationBar.buttons[@"Countries"] tap];
 }
 
 @end
