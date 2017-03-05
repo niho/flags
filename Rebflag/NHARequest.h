@@ -11,7 +11,6 @@
 
 @class NHARequest;
 @class NHADecoder;
-@class NHACountry;
 
 
 #pragma mark - NHARequestDelegate
