@@ -19,6 +19,10 @@
     if (self.country) {
         self.title = self.country.name;
         self.flagView.image = self.country.flag;
+        self.flagView.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.flagView.layer.shadowRadius = 2.0f;
+        self.flagView.layer.shadowOffset = CGSizeMake(1, 1);
+        self.flagView.layer.shadowOpacity = 0.5f;
     }
 }
 
