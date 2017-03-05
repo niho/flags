@@ -23,6 +23,9 @@
         self.flagView.layer.shadowRadius = 2.0f;
         self.flagView.layer.shadowOffset = CGSizeMake(1, 1);
         self.flagView.layer.shadowOpacity = 0.5f;
+
+        UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(flagTapped:)];
+        [self.view addGestureRecognizer:gesture];
     }
 }
 
@@ -40,6 +43,19 @@
         
         // Update the view.
         [self configureView];
+    }
+}
+
+#pragma mark - Gesture Recognizer
+
+- (void)flagTapped:(UITapGestureRecognizer *)sender {
+    if (self.splitViewController) {
+        if (self.splitViewController.collapsed ||
+            self.splitViewController.displayMode == UISplitViewControllerDisplayModePrimaryHidden) {
+            if (self.navigationController) {
+                [self.navigationController setNavigationBarHidden:!self.navigationController.navigationBarHidden animated:YES];
+            }
+        }
     }
 }
 
