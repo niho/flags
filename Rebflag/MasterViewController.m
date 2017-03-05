@@ -108,7 +108,13 @@
 
     NHACountry *country = self.sections[indexPath.section][indexPath.row];
     cell.textLabel.text = country.name;
+    cell.textLabel.textColor = country.flag ? [UIColor darkTextColor] : [UIColor lightGrayColor];
     return cell;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    NHACountry *country = self.sections[indexPath.section][indexPath.row];
+    return country.flag ? indexPath : nil;
 }
 
 
