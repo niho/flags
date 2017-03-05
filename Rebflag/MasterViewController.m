@@ -47,7 +47,7 @@
     NHACountriesDecoder *decoder = [[NHACountriesDecoder alloc] init];
     self.request = [[NHARequest alloc] initWithURL:URL andDecoder:decoder];
     self.request.delegate = self;
-    [self.request fetch];
+    [self.request start];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

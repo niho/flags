@@ -45,6 +45,12 @@
 + (nullable instancetype)new UNAVAILABLE_ATTRIBUTE;
 
 /**
+ Start the request. The request object will watch for network reachability and
+ perform the request whenever the requested resource is available.
+ */
+- (void)start;
+
+/**
  Perform the request.
  */
 - (void)fetch;

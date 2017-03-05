@@ -8,15 +8,29 @@
 
 #import "NHARequest.h"
 #import "NHADecoder.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 const NSErrorDomain NHARequestErrorDomain = @"NHARequestErrorDomain";
 const int NHARequestDeserializationError = -1;
 
-@interface NHARequest ()
+@interface NHARequest () {
+    SCNetworkReachabilityRef _reachability;
+}
 @property (nonatomic, strong) NSURLRequest *request;
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, strong) NHADecoder *decoder;
 @end
+
+static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReachabilityFlags flags, void *info) {
+#pragma unused (target, flags)
+    NSCAssert(info != NULL, @"info was NULL in ReachabilityCallback");
+    NSCAssert([(__bridge NSObject*) info isKindOfClass: [NHARequest class]], @"info was wrong class in ReachabilityCallback");
+    
+    if (flags & kSCNetworkReachabilityFlagsReachable) {
+        NHARequest *request = (__bridge NHARequest *)info;
+        [request fetch];
+    }
+}
 
 @implementation NHARequest
 
@@ -29,6 +43,14 @@ const int NHARequestDeserializationError = -1;
         _decoder = decoder;
     }
     return self;
+}
+
+- (void)dealloc {
+    [self stopReachability];
+}
+
+- (void)start {
+    [self startReachability];
 }
 
 - (void)fetch {
@@ -80,6 +102,26 @@ const int NHARequestDeserializationError = -1;
 - (void)notifyDelegateOnMainQueue:(void (^)())block {
     if (self.delegate) {
         dispatch_async(dispatch_get_main_queue(), block);
+    }
+}
+
+- (BOOL)startReachability {
+    _reachability = SCNetworkReachabilityCreateWithName(NULL, [self.request.URL.host UTF8String]);
+    SCNetworkReachabilityContext context = {0, (__bridge void *)(self), NULL, NULL, NULL};
+    
+    if (SCNetworkReachabilitySetCallback(_reachability, ReachabilityCallback, &context)) {
+        if (SCNetworkReachabilityScheduleWithRunLoop(_reachability, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode)) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
+- (void)stopReachability {
+    if (_reachability) {
+        SCNetworkReachabilityUnscheduleFromRunLoop(_reachability, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+        CFRelease(_reachability);
     }
 }
 
