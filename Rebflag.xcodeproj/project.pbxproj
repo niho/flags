@@ -597,6 +597,7 @@
 				85ABC2EE1E686831001491F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		85ABC2EF1E686831001491F6 /* Build configuration list for PBXNativeTarget "RebflagTests" */ = {
 			isa = XCConfigurationList;
@@ -605,6 +606,7 @@
 				85ABC2F11E686831001491F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		85ABC2F21E686831001491F6 /* Build configuration list for PBXNativeTarget "RebflagUITests" */ = {
 			isa = XCConfigurationList;
@@ -613,6 +615,7 @@
 				85ABC2F41E686831001491F6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

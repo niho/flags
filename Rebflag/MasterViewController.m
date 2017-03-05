@@ -12,7 +12,7 @@
 #import "NHACountriesDecoder.h"
 #import "NHACountry.h"
 
-@interface MasterViewController () <NHARequestDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
+@interface MasterViewController () <NHARequestDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 @property (nonatomic, strong) NHARequest *request;
 @property (nonatomic, strong) NSArray<NHACountry *> *countries;
 @property (nonatomic, strong) NSArray<NSArray<NHACountry *> *> *sections;
@@ -24,10 +24,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
-    
+    [self setupPagesController];
     [self setupSearchController];
     [self setupRequest];
+}
+
+- (void)setupPagesController {
+    UIPageViewController *controller = (UIPageViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    controller.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)setupSearchController {
@@ -74,13 +78,17 @@
 }
 
 - (void)request:(NHARequest *)request didCompleteWithResponse:(id)response {
-    self.countries = response;
-    self.sections = [self sectionsWithCountries:response];
+    self.countries = [self sortedArrayWithCountries:response];
+    self.sections = [self sectionsWithCountries:self.countries];
     [self.tableView reloadData];
 }
 
 
 #pragma mark - Sections
+
+- (NSArray<NHACountry *> *)sortedArrayWithCountries:(NSArray<NHACountry *> *)countries {
+    return [[UILocalizedIndexedCollation currentCollation] sortedArrayFromArray:countries collationStringSelector:@selector(name)];
+}
 
 - (NSArray<NSArray<NHACountry *> *> *)sectionsWithCountries:(NSArray<NHACountry *> *)countries {
     UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
@@ -90,7 +98,7 @@
         [sections addObject:[[NSMutableArray alloc] init]];
     }
     
-    [[collation sortedArrayFromArray:countries collationStringSelector:@selector(name)] enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [countries enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         NSInteger section = [collation sectionForObject:obj collationStringSelector:@selector(name)];
         [sections[section] addObject:obj];
     }];
@@ -103,12 +111,19 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
+        UIPageViewController *pages = (UIPageViewController *)[[segue destinationViewController] topViewController];
+        pages.dataSource = self;
+        pages.delegate = self;
+        pages.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
+        pages.navigationItem.leftItemsSupplementBackButton = YES;
+        
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NHACountry *country = self.sections[indexPath.section][indexPath.row];
-        DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
+        DetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
         [controller setCountry:country];
-        controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
-        controller.navigationItem.leftItemsSupplementBackButton = YES;
+        
+        [pages setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+        pages.title = controller.title;
     }
 }
 
@@ -172,6 +187,63 @@
         NSArray<NHACountry *> *countries = [self.countries filteredArrayUsingPredicate:predicate];
         self.sections = [self sectionsWithCountries:countries];
         [self.tableView reloadData];
+    }
+}
+
+
+#pragma mark - UIPageViewControllerDataSource
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
+    DetailViewController *detail = (DetailViewController *)viewController;
+    if (detail && detail.country) {
+        NSUInteger index = [self.countries indexOfObject:detail.country];
+        NHACountry *country;
+        if (index == 0) {
+            country = self.countries.lastObject;
+        } else {
+            country = self.countries[index - 1];
+        }
+        DetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
+        [controller setCountry:country];
+        return controller;
+    }
+    return nil;
+}
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
+    DetailViewController *detail = (DetailViewController *)viewController;
+    if (detail && detail.country) {
+        NSUInteger index = [self.countries indexOfObject:detail.country];
+        NHACountry *country;
+        if (index == (self.countries.count - 1)) {
+            country = self.countries.firstObject;
+        } else {
+            country = self.countries[index + 1];
+        }
+        DetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
+        [controller setCountry:country];
+        return controller;
+    }
+    return nil;
+}
+
+
+#pragma mark - UIPageViewControllerDelegate
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+    
+    DetailViewController *detail = (DetailViewController *)[pageViewController viewControllers].firstObject;
+    if (detail && detail.country) {
+        for (int section = 0; section < self.sections.count; section++) {
+            for (int row = 0; row < self.sections[section].count; row++) {
+                if (self.sections[section][row] == detail.country) {
+                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
+                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+                    pageViewController.title = detail.title;
+                    return;
+                }
+            }
+        }
     }
 }
 
