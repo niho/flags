@@ -12,9 +12,11 @@
 #import "NHACountriesDecoder.h"
 #import "NHACountry.h"
 
-@interface MasterViewController () <NHARequestDelegate>
-@property NHARequest *request;
-@property NSArray<NSArray<NHACountry *> *> *sections;
+@interface MasterViewController () <NHARequestDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating>
+@property (nonatomic, strong) NHARequest *request;
+@property (nonatomic, strong) NSArray<NHACountry *> *countries;
+@property (nonatomic, strong) NSArray<NSArray<NHACountry *> *> *sections;
+@property (nonatomic, strong) UISearchController *searchController;
 @end
 
 @implementation MasterViewController
@@ -24,6 +26,23 @@
     
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
     
+    [self setupSearchController];
+    [self setupRequest];
+}
+
+- (void)setupSearchController {
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchController.delegate = self;
+    self.searchController.searchResultsUpdater = self;
+    self.searchController.hidesNavigationBarDuringPresentation = false;
+    self.searchController.dimsBackgroundDuringPresentation = false;
+    self.searchController.searchBar.delegate = self;
+    self.searchController.searchBar.tintColor = [UIColor blackColor];
+    [self.searchController.searchBar sizeToFit];
+    self.tableView.tableHeaderView = self.searchController.searchBar;
+}
+
+- (void)setupRequest {
     NSURL *URL = [NSURL URLWithString:@"https://restcountries.eu/rest/v2/all"];
     NHACountriesDecoder *decoder = [[NHACountriesDecoder alloc] init];
     self.request = [[NHARequest alloc] initWithURL:URL andDecoder:decoder];
@@ -55,6 +74,7 @@
 }
 
 - (void)request:(NHARequest *)request didCompleteWithResponse:(id)response {
+    self.countries = response;
     self.sections = [self sectionsWithCountries:response];
     [self.tableView reloadData];
 }
@@ -96,7 +116,7 @@
 #pragma mark - Table View
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sections.count;
+    return self.sections ? self.sections.count : 0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -125,11 +145,34 @@
 }
 
 - (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    return [UILocalizedIndexedCollation currentCollation].sectionIndexTitles;
+    NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] init];
+    [titles addObject:UITableViewIndexSearch];
+    [titles addObjectsFromArray:[UILocalizedIndexedCollation currentCollation].sectionIndexTitles];
+    return titles;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
+    if ([title isEqualToString:UITableViewIndexSearch]) {
+        [tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
+        return -1;
+    }
     return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
+}
+
+
+#pragma mark - UISearchResultsUpdating
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
+    NSString *query = searchController.searchBar.text;
+    if (query == nil || [query isEqualToString:@""]) {
+        self.sections = [self sectionsWithCountries:self.countries];
+        [self.tableView reloadData];
+    } else {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.name BEGINSWITH[cd] %@", query];
+        NSArray<NHACountry *> *countries = [self.countries filteredArrayUsingPredicate:predicate];
+        self.sections = [self sectionsWithCountries:countries];
+        [self.tableView reloadData];
+    }
 }
 
 
