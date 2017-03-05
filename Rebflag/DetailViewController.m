@@ -10,7 +10,6 @@
 #import "NHACountry.h"
 
 @interface DetailViewController ()
-@property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *flagView;
 @end
 
@@ -19,7 +18,6 @@
 - (void)configureView {
     if (self.country) {
         self.title = self.country.name;
-        self.nameLabel.text = self.country.name;
         self.flagView.image = self.country.flag;
     }
 }
