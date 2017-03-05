@@ -32,7 +32,7 @@
     [super tearDown];
 }
 
-- (void)testRussianFederation {
+- (void)testSweden {
     XCUIApplication *app = [[XCUIApplication alloc] init];
     
     [self expectationForPredicate:[NSPredicate predicateWithFormat:@"self.count > 0"]
@@ -40,10 +40,7 @@
                           handler:nil];
     [self waitForExpectationsWithTimeout:10 handler:nil];
     
-    [app.tables.cells.staticTexts[@"Russian Federation"] tap];
-    
-    XCUIElement *russianFederationNavigationBar = app.navigationBars[@"Russian Federation"];
-    [russianFederationNavigationBar.buttons[@"Countries"] tap];
+    [app.tables.cells.staticTexts[@"Sweden"] tap];
 }
 
 @end
