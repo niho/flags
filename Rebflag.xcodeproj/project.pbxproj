@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8526CB6A1E6D6ACE001AD2B8 /* NHASearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8526CB691E6D6ACE001AD2B8 /* NHASearchResultsViewController.m */; };
 		85ABC2C11E686830001491F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C01E686830001491F6 /* main.m */; };
 		85ABC2C41E686830001491F6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C31E686830001491F6 /* AppDelegate.m */; };
 		85ABC2C71E686830001491F6 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C61E686830001491F6 /* MasterViewController.m */; };
@@ -43,6 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8526CB681E6D6ACE001AD2B8 /* NHASearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHASearchResultsViewController.h; sourceTree = "<group>"; };
+		8526CB691E6D6ACE001AD2B8 /* NHASearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHASearchResultsViewController.m; sourceTree = "<group>"; };
 		85ABC2BC1E686830001491F6 /* Rebflag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rebflag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85ABC2C01E686830001491F6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		85ABC2C21E686830001491F6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -201,6 +204,8 @@
 				85ABC2C61E686830001491F6 /* MasterViewController.m */,
 				85ABC2C81E686830001491F6 /* DetailViewController.h */,
 				85ABC2C91E686830001491F6 /* DetailViewController.m */,
+				8526CB681E6D6ACE001AD2B8 /* NHASearchResultsViewController.h */,
+				8526CB691E6D6ACE001AD2B8 /* NHASearchResultsViewController.m */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -358,6 +363,7 @@
 				85ABC3091E6B4D20001491F6 /* NHADecoder.m in Sources */,
 				85ABC2C11E686830001491F6 /* main.m in Sources */,
 				85ABC3041E6B2BD2001491F6 /* NHACountriesDecoder.m in Sources */,
+				8526CB6A1E6D6ACE001AD2B8 /* NHASearchResultsViewController.m in Sources */,
 				85ABC2CA1E686830001491F6 /* DetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

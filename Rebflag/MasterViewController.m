@@ -8,15 +8,17 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "NHASearchResultsViewController.h"
 #import "NHARequest.h"
 #import "NHACountriesDecoder.h"
 #import "NHACountry.h"
 
-@interface MasterViewController () <NHARequestDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface MasterViewController () <NHARequestDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, NHASearchResultsDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 @property (nonatomic, strong) NHARequest *request;
 @property (nonatomic, strong) NSArray<NHACountry *> *countries;
 @property (nonatomic, strong) NSArray<NSArray<NHACountry *> *> *sections;
 @property (nonatomic, strong) UISearchController *searchController;
+@property (nonatomic, strong) NHASearchResultsViewController *searchResults;
 @end
 
 @implementation MasterViewController
@@ -35,13 +37,12 @@
 }
 
 - (void)setupSearchController {
-    self.searchController = [[UISearchController alloc] initWithSearchResultsController:nil];
+    self.searchResults = [[NHASearchResultsViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    self.searchResults.delegate = self;
+    self.searchController = [[UISearchController alloc] initWithSearchResultsController:self.searchResults];
     self.searchController.delegate = self;
     self.searchController.searchResultsUpdater = self;
-    self.searchController.hidesNavigationBarDuringPresentation = false;
-    self.searchController.dimsBackgroundDuringPresentation = false;
     self.searchController.searchBar.delegate = self;
-    self.searchController.searchBar.tintColor = [UIColor blackColor];
     [self.searchController.searchBar sizeToFit];
     self.tableView.tableHeaderView = self.searchController.searchBar;
 }
@@ -179,14 +180,20 @@
 
 - (void)updateSearchResultsForSearchController:(UISearchController *)searchController {
     NSString *query = searchController.searchBar.text;
-    if (query == nil || [query isEqualToString:@""]) {
-        self.sections = [self sectionsWithCountries:self.countries];
-        [self.tableView reloadData];
-    } else {
-        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.name BEGINSWITH[cd] %@", query];
-        NSArray<NHACountry *> *countries = [self.countries filteredArrayUsingPredicate:predicate];
-        self.sections = [self sectionsWithCountries:countries];
-        [self.tableView reloadData];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self.name BEGINSWITH[cd] %@", query];
+    self.searchResults.countries = [self.countries filteredArrayUsingPredicate:predicate];
+    [self.searchResults.tableView reloadData];
+}
+
+
+#pragma mark - NHASearchResultsDelegate
+
+- (void)searchResults:(NHASearchResultsViewController *)controller didSelectCountry:(NHACountry *)country {
+    NSIndexPath *indexPath = [self indexPathForCountry:country];
+    if (indexPath) {
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+        [self performSegueWithIdentifier:@"showDetail" sender:country];
+        [self.searchController setActive:NO];
     }
 }
 
@@ -234,17 +241,26 @@
     
     DetailViewController *detail = (DetailViewController *)[pageViewController viewControllers].firstObject;
     if (detail && detail.country) {
-        for (int section = 0; section < self.sections.count; section++) {
-            for (int row = 0; row < self.sections[section].count; row++) {
-                if (self.sections[section][row] == detail.country) {
-                    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:section];
-                    [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
-                    pageViewController.title = detail.title;
-                    return;
-                }
+        NSIndexPath *indexPath = [self indexPathForCountry:detail.country];
+        if (indexPath) {
+            [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
+            pageViewController.title = detail.title;
+        }
+    }
+}
+
+
+#pragma mark - Helpers
+
+- (NSIndexPath *)indexPathForCountry:(NHACountry *)country {
+    for (int section = 0; section < self.sections.count; section++) {
+        for (int row = 0; row < self.sections[section].count; row++) {
+            if (self.sections[section][row] == country) {
+                return [NSIndexPath indexPathForRow:row inSection:section];
             }
         }
     }
+    return nil;
 }
 
 
