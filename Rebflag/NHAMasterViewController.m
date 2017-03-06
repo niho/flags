@@ -60,6 +60,15 @@
     [super viewWillAppear:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+    [self becomeFirstResponder];
+    [super viewDidAppear:animated];
+}
+
+- (BOOL)canBecomeFirstResponder {
+    return YES;
+}
+
 
 #pragma mark - NHARequestDelegate
 
@@ -189,12 +198,7 @@
 #pragma mark - NHASearchResultsDelegate
 
 - (void)searchResults:(NHASearchResultsViewController *)controller didSelectCountry:(NHACountry *)country {
-    NSIndexPath *indexPath = [self indexPathForCountry:country];
-    if (indexPath) {
-        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
-        [self performSegueWithIdentifier:@"showDetail" sender:country];
-        [self.searchController setActive:NO];
-    }
+    [self selectAndShowCountry:country];
 }
 
 
@@ -260,6 +264,28 @@
         }
     }
     return nil;
+}
+
+- (void)selectAndShowCountry:(NHACountry *)country {
+    NSIndexPath *indexPath = [self indexPathForCountry:country];
+    if (indexPath) {
+        [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
+        [self performSegueWithIdentifier:@"showDetail" sender:country];
+        [self.searchController setActive:NO];
+    }
+}
+
+
+#pragma mark - Motion events
+
+- (void)motionEnded:(UIEventSubtype)motion withEvent:(UIEvent *)event {
+    if (motion == UIEventSubtypeMotionShake) {
+        if (self.countries.count > 0) {
+            NSUInteger index = arc4random() % (self.countries.count - 1);
+            NHACountry *country = self.countries[index];
+            [self selectAndShowCountry:country];
+        }
+    }
 }
 
 
