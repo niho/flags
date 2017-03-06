@@ -1,5 +1,5 @@
 //
-//  DetailViewController.h
+//  NHAMasterViewController.h
 //  Rebflag
 //
 //  Created by Niklas Holmgren on 2017-03-02.
@@ -8,11 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class NHACountry;
-
-@interface DetailViewController : UIViewController
-
-@property (strong, nonatomic) NHACountry *country;
+@interface NHAMasterViewController : UITableViewController
 
 @end
 

@@ -10,8 +10,8 @@
 		8526CB6A1E6D6ACE001AD2B8 /* NHASearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8526CB691E6D6ACE001AD2B8 /* NHASearchResultsViewController.m */; };
 		85ABC2C11E686830001491F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C01E686830001491F6 /* main.m */; };
 		85ABC2C41E686830001491F6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C31E686830001491F6 /* AppDelegate.m */; };
-		85ABC2C71E686830001491F6 /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C61E686830001491F6 /* MasterViewController.m */; };
-		85ABC2CA1E686830001491F6 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C91E686830001491F6 /* DetailViewController.m */; };
+		85ABC2C71E686830001491F6 /* NHAMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C61E686830001491F6 /* NHAMasterViewController.m */; };
+		85ABC2CA1E686830001491F6 /* NHADetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C91E686830001491F6 /* NHADetailViewController.m */; };
 		85ABC2CD1E686830001491F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85ABC2CB1E686830001491F6 /* Main.storyboard */; };
 		85ABC2CF1E686830001491F6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 85ABC2CE1E686830001491F6 /* Assets.xcassets */; };
 		85ABC2D21E686830001491F6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 85ABC2D01E686830001491F6 /* LaunchScreen.storyboard */; };
@@ -50,10 +50,10 @@
 		85ABC2C01E686830001491F6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		85ABC2C21E686830001491F6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		85ABC2C31E686830001491F6 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		85ABC2C51E686830001491F6 /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		85ABC2C61E686830001491F6 /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		85ABC2C81E686830001491F6 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		85ABC2C91E686830001491F6 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
+		85ABC2C51E686830001491F6 /* NHAMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NHAMasterViewController.h; sourceTree = "<group>"; };
+		85ABC2C61E686830001491F6 /* NHAMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NHAMasterViewController.m; sourceTree = "<group>"; };
+		85ABC2C81E686830001491F6 /* NHADetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NHADetailViewController.h; sourceTree = "<group>"; };
+		85ABC2C91E686830001491F6 /* NHADetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NHADetailViewController.m; sourceTree = "<group>"; };
 		85ABC2CC1E686830001491F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		85ABC2CE1E686830001491F6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		85ABC2D11E686830001491F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -200,10 +200,10 @@
 		85ABC30F1E6B58D3001491F6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				85ABC2C51E686830001491F6 /* MasterViewController.h */,
-				85ABC2C61E686830001491F6 /* MasterViewController.m */,
-				85ABC2C81E686830001491F6 /* DetailViewController.h */,
-				85ABC2C91E686830001491F6 /* DetailViewController.m */,
+				85ABC2C51E686830001491F6 /* NHAMasterViewController.h */,
+				85ABC2C61E686830001491F6 /* NHAMasterViewController.m */,
+				85ABC2C81E686830001491F6 /* NHADetailViewController.h */,
+				85ABC2C91E686830001491F6 /* NHADetailViewController.m */,
 				8526CB681E6D6ACE001AD2B8 /* NHASearchResultsViewController.h */,
 				8526CB691E6D6ACE001AD2B8 /* NHASearchResultsViewController.m */,
 			);
@@ -359,12 +359,12 @@
 				85ABC2FC1E68A13C001491F6 /* NHACountry.m in Sources */,
 				85ABC2F91E686DE6001491F6 /* NHARequest.m in Sources */,
 				85ABC2C41E686830001491F6 /* AppDelegate.m in Sources */,
-				85ABC2C71E686830001491F6 /* MasterViewController.m in Sources */,
+				85ABC2C71E686830001491F6 /* NHAMasterViewController.m in Sources */,
 				85ABC3091E6B4D20001491F6 /* NHADecoder.m in Sources */,
 				85ABC2C11E686830001491F6 /* main.m in Sources */,
 				85ABC3041E6B2BD2001491F6 /* NHACountriesDecoder.m in Sources */,
 				8526CB6A1E6D6ACE001AD2B8 /* NHASearchResultsViewController.m in Sources */,
-				85ABC2CA1E686830001491F6 /* DetailViewController.m in Sources */,
+				85ABC2CA1E686830001491F6 /* NHADetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

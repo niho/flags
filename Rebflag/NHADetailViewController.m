@@ -1,19 +1,19 @@
 //
-//  DetailViewController.m
+//  NHADetailViewController.m
 //  Rebflag
 //
 //  Created by Niklas Holmgren on 2017-03-02.
 //  Copyright © 2017 Niklas Holmgren & Associates AB. All rights reserved.
 //
 
-#import "DetailViewController.h"
+#import "NHADetailViewController.h"
 #import "NHACountry.h"
 
-@interface DetailViewController ()
+@interface NHADetailViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *flagView;
 @end
 
-@implementation DetailViewController
+@implementation NHADetailViewController
 
 - (void)configureView {
     if (self.country) {

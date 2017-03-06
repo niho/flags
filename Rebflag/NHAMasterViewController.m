@@ -1,19 +1,19 @@
 //
-//  MasterViewController.m
+//  NHAMasterViewController.m
 //  Rebflag
 //
 //  Created by Niklas Holmgren on 2017-03-02.
 //  Copyright © 2017 Niklas Holmgren & Associates AB. All rights reserved.
 //
 
-#import "MasterViewController.h"
-#import "DetailViewController.h"
+#import "NHAMasterViewController.h"
+#import "NHADetailViewController.h"
 #import "NHASearchResultsViewController.h"
 #import "NHARequest.h"
 #import "NHACountriesDecoder.h"
 #import "NHACountry.h"
 
-@interface MasterViewController () <NHARequestDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, NHASearchResultsDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface NHAMasterViewController () <NHARequestDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, NHASearchResultsDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 @property (nonatomic, strong) NHARequest *request;
 @property (nonatomic, strong) NSArray<NHACountry *> *countries;
 @property (nonatomic, strong) NSArray<NSArray<NHACountry *> *> *sections;
@@ -21,7 +21,7 @@
 @property (nonatomic, strong) NHASearchResultsViewController *searchResults;
 @end
 
-@implementation MasterViewController
+@implementation NHAMasterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -120,7 +120,7 @@
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         NHACountry *country = self.sections[indexPath.section][indexPath.row];
-        DetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
+        NHADetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
         [controller setCountry:country];
         
         [pages setViewControllers:@[controller] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
@@ -201,7 +201,7 @@
 #pragma mark - UIPageViewControllerDataSource
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController {
-    DetailViewController *detail = (DetailViewController *)viewController;
+    NHADetailViewController *detail = (NHADetailViewController *)viewController;
     if (detail && detail.country) {
         NSUInteger index = [self.countries indexOfObject:detail.country];
         NHACountry *country;
@@ -210,7 +210,7 @@
         } else {
             country = self.countries[index - 1];
         }
-        DetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
+        NHADetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
         [controller setCountry:country];
         return controller;
     }
@@ -218,7 +218,7 @@
 }
 
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController {
-    DetailViewController *detail = (DetailViewController *)viewController;
+    NHADetailViewController *detail = (NHADetailViewController *)viewController;
     if (detail && detail.country) {
         NSUInteger index = [self.countries indexOfObject:detail.country];
         NHACountry *country;
@@ -227,7 +227,7 @@
         } else {
             country = self.countries[index + 1];
         }
-        DetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
+        NHADetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
         [controller setCountry:country];
         return controller;
     }
@@ -238,8 +238,7 @@
 #pragma mark - UIPageViewControllerDelegate
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
-    
-    DetailViewController *detail = (DetailViewController *)[pageViewController viewControllers].firstObject;
+    NHADetailViewController *detail = (NHADetailViewController *)[pageViewController viewControllers].firstObject;
     if (detail && detail.country) {
         NSIndexPath *indexPath = [self indexPathForCountry:detail.country];
         if (indexPath) {
