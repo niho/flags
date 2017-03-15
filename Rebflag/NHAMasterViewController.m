@@ -12,11 +12,12 @@
 #import "NHARequest.h"
 #import "NHACountriesDecoder.h"
 #import "NHACountry.h"
+#import "NHAIndexedSections.h"
 
 @interface NHAMasterViewController () <NHARequestDelegate, UISearchBarDelegate, UISearchControllerDelegate, UISearchResultsUpdating, NHASearchResultsDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 @property (nonatomic, strong) NHARequest *request;
 @property (nonatomic, strong) NSArray<NHACountry *> *countries;
-@property (nonatomic, strong) NSArray<NSArray<NHACountry *> *> *sections;
+@property (nonatomic, strong) NHAIndexedSections *sections;
 @property (nonatomic, strong) UISearchController *searchController;
 @property (nonatomic, strong) NHASearchResultsViewController *searchResults;
 @end
@@ -88,33 +89,16 @@
 }
 
 - (void)request:(NHARequest *)request didCompleteWithResponse:(id)response {
-    self.countries = [self sortedArrayWithCountries:response];
-    self.sections = [self sectionsWithCountries:self.countries];
+    self.countries = response;
+    self.sections = [[NHAIndexedSections alloc] initWithArray:response
+                                      collationStringSelector:@selector(name)
+                                                  indexSearch:YES];
+    self.tableView.dataSource = self.sections;
     [self.tableView reloadData];
 }
 
 
-#pragma mark - Sections
 
-- (NSArray<NHACountry *> *)sortedArrayWithCountries:(NSArray<NHACountry *> *)countries {
-    return [[UILocalizedIndexedCollation currentCollation] sortedArrayFromArray:countries collationStringSelector:@selector(name)];
-}
-
-- (NSArray<NSArray<NHACountry *> *> *)sectionsWithCountries:(NSArray<NHACountry *> *)countries {
-    UILocalizedIndexedCollation *collation = [UILocalizedIndexedCollation currentCollation];
-    NSMutableArray<NSMutableArray<NHACountry *> *> *sections = [[NSMutableArray alloc] init];
-    
-    for (int i = 0; i < collation.sectionTitles.count; i++) {
-        [sections addObject:[[NSMutableArray alloc] init]];
-    }
-    
-    [countries enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        NSInteger section = [collation sectionForObject:obj collationStringSelector:@selector(name)];
-        [sections[section] addObject:obj];
-    }];
-    
-    return sections;
-}
 
 
 #pragma mark - Segues
@@ -128,7 +112,7 @@
         pages.navigationItem.leftItemsSupplementBackButton = YES;
         
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        NHACountry *country = self.sections[indexPath.section][indexPath.row];
+        NHACountry *country = (NHACountry *)[self.sections objectAtIndexPath:indexPath];
         NHADetailViewController *controller = [self.storyboard instantiateViewControllerWithIdentifier:@"Country"];
         [controller setCountry:country];
         
@@ -140,48 +124,9 @@
 
 #pragma mark - Table View
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sections ? self.sections.count : 0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.sections[section].count;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-
-    NHACountry *country = self.sections[indexPath.section][indexPath.row];
-    cell.textLabel.text = country.name;
-    cell.textLabel.textColor = country.flag ? [UIColor darkTextColor] : [UIColor lightGrayColor];
-    return cell;
-}
-
 - (NSIndexPath *)tableView:(UITableView *)tableView willSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    NHACountry *country = self.sections[indexPath.section][indexPath.row];
-    return country.flag ? indexPath : nil;
-}
-
-
-#pragma mark - Section headers & Index
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-    return [UILocalizedIndexedCollation currentCollation].sectionTitles[section];
-}
-
-- (NSArray<NSString *> *)sectionIndexTitlesForTableView:(UITableView *)tableView {
-    NSMutableArray<NSString *> *titles = [[NSMutableArray alloc] init];
-    [titles addObject:UITableViewIndexSearch];
-    [titles addObjectsFromArray:[UILocalizedIndexedCollation currentCollation].sectionIndexTitles];
-    return titles;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index {
-    if ([title isEqualToString:UITableViewIndexSearch]) {
-        [tableView scrollRectToVisible:CGRectMake(0, 0, 1, 1) animated:YES];
-        return -1;
-    }
-    return [[UILocalizedIndexedCollation currentCollation] sectionForSectionIndexTitleAtIndex:index];
+    NHACountry *country = (NHACountry *)[self.sections objectAtIndexPath:indexPath];
+    return country && country.flag ? indexPath : nil;
 }
 
 
@@ -244,7 +189,7 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
     NHADetailViewController *detail = (NHADetailViewController *)[pageViewController viewControllers].firstObject;
     if (detail && detail.country) {
-        NSIndexPath *indexPath = [self indexPathForCountry:detail.country];
+        NSIndexPath *indexPath = [self.sections indexPathForObject:detail.country];
         if (indexPath) {
             [self.tableView selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionMiddle];
             pageViewController.title = detail.title;
@@ -255,19 +200,8 @@
 
 #pragma mark - Helpers
 
-- (NSIndexPath *)indexPathForCountry:(NHACountry *)country {
-    for (int section = 0; section < self.sections.count; section++) {
-        for (int row = 0; row < self.sections[section].count; row++) {
-            if (self.sections[section][row] == country) {
-                return [NSIndexPath indexPathForRow:row inSection:section];
-            }
-        }
-    }
-    return nil;
-}
-
 - (void)selectAndShowCountry:(NHACountry *)country {
-    NSIndexPath *indexPath = [self indexPathForCountry:country];
+    NSIndexPath *indexPath = [self.sections indexPathForObject:country];
     if (indexPath) {
         [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionMiddle];
         [self performSegueWithIdentifier:@"showDetail" sender:country];

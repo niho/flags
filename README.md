@@ -4,7 +4,7 @@ Flags is a simple app for browsing all the countries of the world and their flag
 
 ## Features
 
-- Browse and view flags in landscape mode.
+- Browse and view flags in both portrait and landscape orientation.
 - Tap on a flag to hide country name (great for memory games).
 - Navigate quickly by swiping between countries.
 - Shake your phone to show a random country.

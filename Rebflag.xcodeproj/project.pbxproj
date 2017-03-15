@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		8526CB6A1E6D6ACE001AD2B8 /* NHASearchResultsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8526CB691E6D6ACE001AD2B8 /* NHASearchResultsViewController.m */; };
+		858936ED1E7955BE005A57B0 /* NHAIndexedSections.m in Sources */ = {isa = PBXBuildFile; fileRef = 858936EC1E7955BE005A57B0 /* NHAIndexedSections.m */; };
+		858936F01E79630E005A57B0 /* NHAIndexedSectionsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 858936EF1E79630E005A57B0 /* NHAIndexedSectionsTest.m */; };
 		85ABC2C11E686830001491F6 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C01E686830001491F6 /* main.m */; };
 		85ABC2C41E686830001491F6 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C31E686830001491F6 /* AppDelegate.m */; };
 		85ABC2C71E686830001491F6 /* NHAMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 85ABC2C61E686830001491F6 /* NHAMasterViewController.m */; };
@@ -46,6 +48,9 @@
 /* Begin PBXFileReference section */
 		8526CB681E6D6ACE001AD2B8 /* NHASearchResultsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHASearchResultsViewController.h; sourceTree = "<group>"; };
 		8526CB691E6D6ACE001AD2B8 /* NHASearchResultsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHASearchResultsViewController.m; sourceTree = "<group>"; };
+		858936EB1E7955BE005A57B0 /* NHAIndexedSections.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NHAIndexedSections.h; sourceTree = "<group>"; };
+		858936EC1E7955BE005A57B0 /* NHAIndexedSections.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHAIndexedSections.m; sourceTree = "<group>"; };
+		858936EF1E79630E005A57B0 /* NHAIndexedSectionsTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NHAIndexedSectionsTest.m; sourceTree = "<group>"; };
 		85ABC2BC1E686830001491F6 /* Rebflag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Rebflag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		85ABC2C01E686830001491F6 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		85ABC2C21E686830001491F6 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -102,6 +107,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		858936EE1E795813005A57B0 /* View models */ = {
+			isa = PBXGroup;
+			children = (
+				858936EB1E7955BE005A57B0 /* NHAIndexedSections.h */,
+				858936EC1E7955BE005A57B0 /* NHAIndexedSections.m */,
+			);
+			name = "View models";
+			sourceTree = "<group>";
+		};
 		85ABC2B31E686830001491F6 = {
 			isa = PBXGroup;
 			children = (
@@ -127,6 +141,7 @@
 			children = (
 				85ABC3101E6B58FF001491F6 /* Application */,
 				85ABC30F1E6B58D3001491F6 /* Controllers */,
+				858936EE1E795813005A57B0 /* View models */,
 				85ABC30D1E6B58A0001491F6 /* Networking */,
 				85ABC30E1E6B58BA001491F6 /* Decoders */,
 				85ABC30C1E6B5893001491F6 /* Models */,
@@ -155,6 +170,7 @@
 				85ABC30A1E6B4FD3001491F6 /* NHADecoderTest.m */,
 				85ABC3051E6B4194001491F6 /* NHACountriesDecoderTest.m */,
 				85ABC3001E68B6E5001491F6 /* NHACountryTest.m */,
+				858936EF1E79630E005A57B0 /* NHAIndexedSectionsTest.m */,
 			);
 			path = RebflagTests;
 			sourceTree = "<group>";
@@ -357,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85ABC2FC1E68A13C001491F6 /* NHACountry.m in Sources */,
+				858936ED1E7955BE005A57B0 /* NHAIndexedSections.m in Sources */,
 				85ABC2F91E686DE6001491F6 /* NHARequest.m in Sources */,
 				85ABC2C41E686830001491F6 /* AppDelegate.m in Sources */,
 				85ABC2C71E686830001491F6 /* NHAMasterViewController.m in Sources */,
@@ -374,6 +391,7 @@
 			files = (
 				85ABC30B1E6B4FD3001491F6 /* NHADecoderTest.m in Sources */,
 				85ABC3011E68B6E5001491F6 /* NHACountryTest.m in Sources */,
+				858936F01E79630E005A57B0 /* NHAIndexedSectionsTest.m in Sources */,
 				85ABC3061E6B4194001491F6 /* NHACountriesDecoderTest.m in Sources */,
 				85ABC2F61E686C0B001491F6 /* NHARequestTest.m in Sources */,
 			);
